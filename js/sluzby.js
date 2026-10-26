@@ -41,6 +41,7 @@
     var parts = layers.map(function (l) {
       var p = { h: l[0], kind: l[1], s: solid(grp) };
       if (p.kind === "glue") p.lines = mk("path", { "class": "nf lo" }, grp);
+      if (p.kind === "sheet") { p.seams = mk("path", { "class": "nf" }, grp); p.grain = mk("path", { "class": "nf lo" }, grp); }
       if (p.kind === "pile") p.shag = mk("path", { "class": "nf" }, grp);
       if (p.kind === "roll") p.roll = solid(grp);
       return p;
@@ -67,6 +68,24 @@
     p.shag.setAttribute("d", d.join(""));
   }
 
+  /* horní plocha vinylu: prkna se střídanými spoji a dvěma letokruhy jako na fotce v úvodu (hero.js) */
+  var PW = W / 6;
+  function planks(p, x0, y0, z) {
+    var sd = [], gd = [], lo = y0 + 1.5, hi = y0 + D - 1.5;
+    for (var k = 0; k < 6; k++) {
+      var u0 = x0 + k * PW, y = y0 - ((k * 37) % 10) * 1.6;
+      if (k) sd.push(open([P(u0, lo, z), P(u0, hi, z)]));
+      while (y < hi) {
+        var L = 18 + (((k * 13 + Math.round(y - y0)) % 7 + 7) % 7) * 1.5, ya = Math.max(y, lo), yb = Math.min(y + L, hi);
+        if (y > lo) sd.push(open([P(u0, y, z), P(u0 + PW, y, z)]));
+        if (yb > ya) gd.push(open([P(u0 + PW * 0.35, ya, z), P(u0 + PW * 0.42, yb, z)]), open([P(u0 + PW * 0.7, ya, z), P(u0 + PW * 0.64, yb, z)]));
+        y += L;
+      }
+    }
+    p.seams.setAttribute("d", sd.join(""));
+    p.grain.setAttribute("d", gd.join(""));
+  }
+
   function draw(sm, e) {
     var x0 = sm.x0, x1 = x0 + W, z = 0;
     sm.parts.forEach(function (p) {
@@ -83,6 +102,7 @@
       z = z1;
       var back = p.kind === "sheet" ? gap * e * 1.3 : 0;
       box(p.s, x0, -back, x1, D - back, z0, z1, 3, 1.2);
+      if (p.seams) planks(p, x0, -back, z1);
       if (p.lines) {
         var d = [];
         for (var r = 10; r < 78; r += 3) {
