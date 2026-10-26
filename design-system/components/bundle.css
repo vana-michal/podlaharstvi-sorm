@@ -138,9 +138,13 @@ body {
 }
 
 /* ---------- Služby s hairline animací ---------- */
-.sp-services { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: var(--space-8); align-items: start; }
-.sp-floors { position: sticky; top: var(--space-6); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-raised); overflow: hidden; }
-.sp-floors__stage { width: 100%; }
+/* kresba je stejně vysoká jako karty: sloupec karet se rozpustí do mřížky, štítky doplňkových služeb mají vlastní řádek */
+.sp-services { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 0 var(--space-8); align-items: start; }
+.sp-services__cards { display: contents; }
+.sp-services .sp-extras { grid-column: 2; }
+.sp-floors { position: relative; align-self: stretch; display: grid; place-items: center; container-type: size; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-raised); overflow: hidden; }
+/* plocha kresby drží poměr 5 : 4 (na něm stojí trefování myší) a vejde se do panelu na šířku i na výšku */
+.sp-floors__stage { width: min(100cqw, 125cqh); }
 .sp-floors__tag { position: absolute; top: var(--space-4); left: var(--space-4); z-index: 1; pointer-events: none; }
 .sp-floors__tag[data-on="true"] { color: var(--accent-ink); }
 .sp-floors__hint { position: absolute; right: var(--space-4); bottom: var(--space-3); pointer-events: none; }
@@ -160,9 +164,10 @@ body {
 .sp-extras span { font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 18px; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--ink-muted); }
 @media (max-width: 720px) {
   .sp-services { grid-template-columns: 1fr; }
+  .sp-services .sp-extras { grid-column: auto; }
   /* kresba zůstává vidět, i když se scrolluje ke kartě 02 a 03 */
-  .sp-floors { top: calc(var(--sp-header-h, 0px) + var(--space-2)); z-index: 2; }
-  .sp-floors__stage { aspect-ratio: auto; height: min(34vh, calc((100vw - 34px) * 0.8)); }
+  .sp-floors { position: sticky; top: calc(var(--sp-header-h, 0px) + var(--space-2)); z-index: 2; align-self: start; display: block; container-type: normal; margin-bottom: var(--space-8); }
+  .sp-floors__stage { width: 100%; aspect-ratio: auto; height: min(34vh, calc((100vw - 34px) * 0.8)); }
   .sp-service { padding: var(--space-4); scroll-margin-top: calc(var(--sp-header-h, 0px) + 34vh + var(--space-6)); }
 }
 

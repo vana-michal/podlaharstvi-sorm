@@ -25,7 +25,7 @@ Sekce Služby: hairline kresba tří vzorků podlahy na jednom betonovém podkla
 
 ## Rozvržení
 
-- Desktop: kresba vlevo (1,1 fr, lepí se při scrollu), karty vpravo (0,9 fr), pod nimi štítky doplňkových služeb.
+- Desktop: kresba vlevo (1,1 fr), karty vpravo (0,9 fr), pod nimi štítky doplňkových služeb. Panel s kresbou je stejně vysoký jako karty (bez štítků) a nelepí se; kresba v poměru 5 : 4 je v něm vycentrovaná a zmenší se, aby se vešla. Sloupec karet má třídu `sp-services__cards`.
 - Pod 720 px: kresba nahoře, lepí se (max. 34 % výšky okna) a karty pod ní projíždějí, takže je změna vidět i u karty 03. Odsazení shora nastav proměnnou `--sp-header-h` na výšku lepící hlavičky; karty mají `scroll-margin-top`, aby se karta s fokusem neschovala pod kresbu.
 
 ## Ano / ne

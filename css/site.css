@@ -17,8 +17,7 @@ html { scroll-padding-top: var(--sp-header-h); }
 .site-section__inner { max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto; }
 .site-section .sp-section-head { margin-bottom: var(--space-12); }
 
-/* Služby: kresba se lepí pod hlavičkou, postup na konci sekce */
-.sp-floors { top: calc(var(--sp-header-h) + var(--space-6)); }
+/* Služby: postup na konci sekce */
 .site-steps { margin-top: var(--space-24); }
 
 /* Reference: každá se připne zvlášť, proto pod sebou; při omezeném pohybu mřížka 2 sloupce */
