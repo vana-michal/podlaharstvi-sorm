@@ -17,6 +17,16 @@ html { scroll-padding-top: var(--sp-header-h); }
 .site-section__inner { max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto; }
 .site-section .sp-section-head { margin-bottom: var(--space-12); }
 
+/* Služby: na desktopu se připnou jako reference a scroll postupně otevře vinyl, PVC a koberec.
+   Dráha 150svh = 50svh na každý vzorek. Pod 720 px a při omezeném pohybu bez připnutí. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
+  .site-floors-pin { --pin-top: var(--sp-header-h); position: relative; height: calc(100svh - var(--pin-top) + 150svh); }
+  .site-floors-pin__frame {
+    position: sticky; top: var(--pin-top); min-height: calc(100svh - var(--pin-top));
+    display: flex; flex-direction: column; justify-content: center; padding-block: var(--space-6);
+  }
+}
+
 /* Služby: postup na konci sekce */
 .site-steps { margin-top: var(--space-24); }
 

@@ -152,30 +152,50 @@
   }
   setActive(-1);
 
-  /* ruka má vždy přednost před automatickou prohlídkou */
-  var touched = false, timers = [];
-  function user() { touched = true; timers.forEach(clearTimeout); timers = []; }
   function pin(i) { pinned = i; act = -2; setActive(i); }
 
   pointer(stage, {
-    move: function (p, e) { if (e.pointerType !== "mouse") return; user(); var h = hit(p); setActive(h >= 0 ? h : pinned); },
-    down: function (p) { user(); var h = hit(p); if (h >= 0) pin(pinned === h ? -1 : h); },
+    move: function (p, e) { if (e.pointerType !== "mouse") return; var h = hit(p); setActive(h >= 0 ? h : pinned); },
+    down: function (p) { var h = hit(p); if (h >= 0) pin(pinned === h ? -1 : h); },
     leave: function () { setActive(pinned); }
   });
   cards.forEach(function (c, i) {
-    c.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { user(); setActive(i); } });
+    c.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") { setActive(i); } });
     c.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") setActive(pinned); });
     /* klik, klepnutí i Enter/mezerník: první otevře a připne, druhý na stejné kartě zavře */
-    c.addEventListener("click", function () { user(); pin(pinned === i ? -1 : i); });
+    c.addEventListener("click", function () { pin(pinned === i ? -1 : i); });
   });
 
-  /* jednou při prvním zobrazení: krátká prohlídka všech tří vzorků; ne při omezeném pohybu */
-  if (!reduce && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting || touched) return;
-      io.disconnect();
-      [0, 1, 2, -1].forEach(function (a, k) { timers.push(setTimeout(function () { if (!touched) setActive(a); }, 600 + k * 1500)); });
-    }, { threshold: 0.5 });
-    io.observe(stage);
+  /* scroll řídí výběr: na desktopu podle dráhy připnutého kontejneru (třetina na vzorek),
+     pod 720 px podle karty, která projede pod lepící kresbou. Klik platí, dokud scroll nepřejde na další vzorek. */
+  var pinBox = document.querySelector(".site-floors-pin"), frame = pinBox && pinBox.querySelector(".site-floors-pin__frame");
+  var floors = stage.closest(".sp-floors"), section = stage.closest("section") || pinBox;
+  var scrolled = -1, raf = 0;
+  function isPinned() { return frame && getComputedStyle(frame).position === "sticky"; }
+  function index() {
+    var r = section.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return -1;
+    if (isPinned()) {
+      var top = parseFloat(getComputedStyle(frame).top) || 0, dist = Math.max(1, pinBox.offsetHeight - frame.offsetHeight);
+      var p = (top - pinBox.getBoundingClientRect().top) / dist;
+      return p < 0 ? -1 : Math.min(2, Math.floor(p * 3));
+    }
+    /* mobil: čára v polovině volného místa pod kresbou */
+    var line = floors.getBoundingClientRect().bottom, at = line + (innerHeight - line) / 2, k = -1;
+    cards.forEach(function (c, i) { if (c.getBoundingClientRect().top < at) k = i; });
+    return k;
+  }
+  function tick() {
+    raf = 0;
+    var k = index();
+    if (k === scrolled) return;
+    scrolled = k;
+    pin(k);
+  }
+  function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
+  if (!reduce) {
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    schedule();
   }
 })();
