@@ -12,6 +12,8 @@ html { scroll-padding-top: var(--sp-header-h); }
 /* ---------- Sekce ---------- */
 .site-section { padding: var(--space-24) var(--space-8); }
 .site-section--sunk { background: var(--surface-sunk); }
+/* Recenze a Kontakt jdou po sobě na stejné ploše: odděluje je linka */
+.site-section--sunk + .site-section--sunk { border-top: 1px solid var(--line); }
 .site-section__inner { max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto; }
 .site-section .sp-section-head { margin-bottom: var(--space-12); }
 
@@ -27,13 +29,18 @@ html { scroll-padding-top: var(--sp-header-h); }
 /* Kontakt: odsazení řeší sekce, ne obal formuláře */
 .site-section .sp-contact-wrap { gap: 0; }
 
+/* ---------- Textová stránka (zásady) ---------- */
+.site-prose { display: grid; gap: var(--space-8); }
+.site-prose > * { max-width: var(--text-max); }
+.site-prose .sp-section-head { margin-bottom: var(--space-4); }
+.site-prose section { display: grid; gap: var(--space-3); }
+
 /* ---------- Patička ---------- */
 .site-footer { padding: var(--space-8); border-top: 1px solid var(--line); background: var(--surface); }
 .site-footer__inner {
   max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto;
   display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6);
 }
-.site-footer .sp-link { font-weight: 400; }
 
 @media (max-width: 820px) {
   .site-refs { grid-template-columns: 1fr; }
@@ -50,6 +57,11 @@ html { scroll-padding-top: var(--sp-header-h); }
   .sp-floors { top: calc(var(--sp-header-h) + var(--space-2)); }
 }
 
+/* dotykové cíle min. 44 px */
 @media (pointer: coarse) {
-  .site-footer .sp-link { display: inline-flex; align-items: center; min-height: 44px; }
+  .sp-wordmark { min-height: 44px; align-content: center; }
+  .site-footer .sp-link,
+  .sp-info__row a { display: inline-flex; align-items: center; min-height: 44px; }
+  .sp-info__row { align-items: center; }
+  .sp-info__row svg { margin-top: 0; }
 }
