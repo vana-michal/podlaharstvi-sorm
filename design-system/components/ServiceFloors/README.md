@@ -4,8 +4,8 @@ Sekce Služby: hairline kresba tří vzorků podlahy na jednom betonovém podkla
 
 ## Co se děje
 
-- **PVC** – role se rozroluje k divákovi.
 - **Lepený vinyl** – dílec se nadzvedne a odloupne a odhalí hřebeny lepidla po zubové stěrce.
+- **PVC** – role se rozroluje k divákovi.
 - **Koberec** – vlas se rozvlní.
 - Ostatní vzorky se zavřou, s odstupem 45 ms od vybraného. Horní plocha otevřeného vzorku je jediná linka v barvě `hairline-hi` (okrová).
 
@@ -20,7 +20,7 @@ Sekce Služby: hairline kresba tří vzorků podlahy na jednom betonovém podkla
 ## Co dodává web
 
 - Knihovnu `components/lib/hairline.js` (globální `HL`), načtenou před skriptem sekce.
-- Pořadí karet musí odpovídat pořadí vzorků v kresbě: PVC, vinyl, koberec (vzadu vlevo → vpředu vpravo).
+- Pořadí karet musí odpovídat pořadí vzorků v kresbě: lepený vinyl, PVC, koberec (vzadu vlevo → vpředu vpravo).
 - Barvy kresby se berou z tokenů `hairline-plate`, `hairline-hi`, `hairline-edge`, `hairline-mid`, `hairline-lo`; nic se nenastavuje natvrdo.
 
 ## Rozvržení

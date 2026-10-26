@@ -25,14 +25,14 @@
     <div>
       <ul class="sp-service-list">
         <li><button class="sp-service" type="button" data-i="0" aria-pressed="false">
-          <span class="sp-h3">PVC podlahy</span>
-          <span class="sp-body">Odolné, snadno udržovatelné a cenově dostupné. Hodí se do pronájmů, chodeb, kuchyní i dětských pokojů.</span>
-          <span class="sp-measure">Také zátěžové PVC pro kanceláře a školy</span>
-        </button></li>
-        <li><button class="sp-service" type="button" data-i="1" aria-pressed="false">
           <span class="sp-h3">Lepený vinyl</span>
           <span class="sp-body">Věrný vzhled dřeva nebo kamene. Tichý, příjemný na dotek a odolný vůči vodě, zvládne i kuchyň.</span>
           <span class="sp-measure">Tenký, hodí se do rekonstrukcí</span>
+        </button></li>
+        <li><button class="sp-service" type="button" data-i="1" aria-pressed="false">
+          <span class="sp-h3">PVC podlahy</span>
+          <span class="sp-body">Odolné, snadno udržovatelné a cenově dostupné. Hodí se do pronájmů, chodeb, kuchyní i dětských pokojů.</span>
+          <span class="sp-measure">Také zátěžové PVC pro kanceláře a školy</span>
         </button></li>
         <li><button class="sp-service" type="button" data-i="2" aria-pressed="false">
           <span class="sp-h3">Koberce</span>
@@ -57,15 +57,15 @@
       register = H.register, pointer = H.pointer;
 
   /* Tři vzorky na jednom betonovém podkladu, zleva (vzadu) doprava (vpředu):
-     PVC role, lepený vinyl na hřebenech lepidla, koberec s vlasem. */
+     lepený vinyl na hřebenech lepidla, PVC role, koberec s vlasem. */
   var W = 48, D = 48, G = 14, PAD = 8, SLAB = 12, X1 = 3 * W + 2 * G, BX = 18;
-  var NAMES = ["PVC v roli", "Lepený vinyl", "Koberec"];
+  var NAMES = ["Lepený vinyl", "PVC v roli", "Koberec"];
   var STACK = [
-    [[1.2, "roll"]],
     [[1.6, "glue"], [3, "sheet"]],
+    [[1.2, "roll"]],
     [[4, "pad"], [6, "pile"]]
   ];
-  var REST = [0.5, 0.3, 0.12], STEP = 45, MARK = 1, gap = 12;
+  var REST = [0.3, 0.5, 0.12], STEP = 45, MARK = 0, gap = 12;
 
   var stage = document.getElementById("floors-stage");
   var tag = document.getElementById("floors-tag");
@@ -74,7 +74,7 @@
   H.inject(document);
   stage.setAttribute("data-hairline", "floors");
   stage.setAttribute("role", "img");
-  stage.setAttribute("aria-label", "Tři podlahy na jednom podkladu: PVC role, lepený vinyl a koberec. Vybraný vzorek se otevře.");
+  stage.setAttribute("aria-label", "Tři podlahy na jednom podkladu: lepený vinyl, PVC role a koberec. Vybraný vzorek se otevře.");
   var svg = mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
 
   var C = Cam(45, 0.5, 1.95), HI = 13 + 2 * 18;
@@ -150,7 +150,7 @@
     });
   }
 
-  /* kbelík s lepidlem vedle PVC, nejblíž divákovi */
+  /* kbelík s lepidlem vedle vinylu, nejblíž divákovi */
   var BY = D + PAD + 12, B0 = -SLAB, B1 = B0 + 15;
   function disc(r) { return rrect(BX - r, BY - r, BX + r, BY + r, r, 8); }
   var pail = solid(g), foot = disc(7), lip = disc(8.5);
