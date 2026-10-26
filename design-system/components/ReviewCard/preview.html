@@ -1,0 +1,42 @@
+<!-- @dsCard group="Sekce" height=760 width=1100 subtitle="Tři skutečné recenze z Googlu: jedna velká a dvě menší citace" -->
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReviewCard — náhled</title>
+<style>.demo { padding: var(--space-8); background: var(--surface-sunk); }</style>
+</head>
+<body>
+<section class="demo" aria-labelledby="recenze-h">
+  <header class="sp-section-head" style="margin-bottom: var(--space-8)">
+    <h2 class="sp-h2" id="recenze-h">Co říkají zákazníci</h2>
+  </header>
+  <div class="sp-reviews">
+    <figure class="sp-review sp-review--lead">
+      <figcaption><h3 class="sp-review__name">Lucie Valenová</h3><span class="sp-label">Recenze na Googlu</span></figcaption>
+      <div class="sp-stars" role="img" aria-label="5 z 5 hvězd" data-stars></div>
+      <blockquote><p class="sp-body">S panem Šormem mám jen ty nejlepší zkušenosti, mám od něj podlahy v celém bytě a můžu ho jen doporučit. Pan Šorm je opravdový profesionál, dokáže poradit, doporučit a na všem se s ním domluvíte. Využili jsme kompletní služby - vytrhávání starých podlah, stěrky a lepení vinylu a rozhodně nelituji, vše bylo rychlé, precizní a výsledek stojí za to! Děkuji! :-)</p></blockquote>
+    </figure>
+    <figure class="sp-review">
+      <figcaption><h3 class="sp-review__name">marph81</h3><span class="sp-label">Recenze na Googlu</span></figcaption>
+      <div class="sp-stars" role="img" aria-label="5 z 5 hvězd" data-stars></div>
+      <blockquote><p class="sp-body">Komunikace a domluva s panem Šormem je naprosto skvělá - volal jsem, že potřebuji kompletně vyměnit podlahu a podlaha byla změřena ještě tentýž den a hotová do 10 dnů. Zejména oceňuji kvalitu odvedené práce, ochotu a rychlost. Mohu jen doporučit.</p></blockquote>
+    </figure>
+    <figure class="sp-review">
+      <figcaption><h3 class="sp-review__name">Petr Čermák</h3><span class="sp-label">Recenze na Googlu</span></figcaption>
+      <div class="sp-stars" role="img" aria-label="5 z 5 hvězd" data-stars></div>
+      <blockquote><p class="sp-body">Po nehodě a rozbitých skleněných dveřích jsem potřeboval vyměnit část poškozené laminátové podlahy. S panem Šormem jsem se na výměně rychle domluvil. Odvedl velmi precizní a čistou práci. Jeho příjemné vystupování a bezproblémová komunikace s ním byly bonusem. Jeho služby vřele doporučuji.</p></blockquote>
+    </figure>
+  </div>
+  <div class="sp-reviews__more">
+    <a class="sp-link" href="#">Všechny recenze na Googlu</a>
+    <a class="sp-link" href="#">Napsat recenzi</a>
+  </div>
+</section>
+<script>
+  var star = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg>';
+  document.querySelectorAll("[data-stars]").forEach(function (s) { s.innerHTML = star + star + star + star + star; });
+</script>
+</body>
+</html>

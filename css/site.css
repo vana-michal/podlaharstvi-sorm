@@ -1,0 +1,55 @@
+/* Web Podlahářství Michal Šorm: rozvržení stránky nad komponentami z bundle.css. Hodnoty jen přes tokeny. */
+
+:root { --sp-header-h: 75px; }
+html { scroll-padding-top: var(--sp-header-h); }
+
+/* ---------- Hlavička: lepí se nahoře, obsah zarovnaný s kontejnerem ---------- */
+.sp-header {
+  position: sticky; top: 0; z-index: 10;
+  padding-inline: max(var(--space-8), calc((100% - var(--container)) / 2 + var(--space-8)));
+}
+
+/* ---------- Sekce ---------- */
+.site-section { padding: var(--space-24) var(--space-8); }
+.site-section--sunk { background: var(--surface-sunk); }
+.site-section__inner { max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto; }
+.site-section .sp-section-head { margin-bottom: var(--space-12); }
+
+/* Služby: kresba se lepí pod hlavičkou, postup na konci sekce */
+.sp-floors { top: calc(var(--sp-header-h) + var(--space-6)); }
+.site-steps { margin-top: var(--space-24); }
+
+/* Reference: mřížka před/po, 2 sloupce */
+.site-refs { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12) var(--space-8); }
+.site-refs .sp-ba { margin: 0; }
+.site-refs__cta { margin-top: var(--space-12); }
+
+/* Kontakt: odsazení řeší sekce, ne obal formuláře */
+.site-section .sp-contact-wrap { gap: 0; }
+
+/* ---------- Patička ---------- */
+.site-footer { padding: var(--space-8); border-top: 1px solid var(--line); background: var(--surface); }
+.site-footer__inner {
+  max-width: calc(var(--container) - 2 * var(--space-8)); margin: 0 auto;
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6);
+}
+.site-footer .sp-link { font-weight: 400; }
+
+@media (max-width: 820px) {
+  .site-refs { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  :root { --sp-header-h: 67px; }
+  .sp-header { padding-inline: var(--space-4); }
+  .site-section { padding: var(--space-16) var(--space-4); }
+  .site-steps { margin-top: var(--space-16); }
+  .site-footer { padding: var(--space-6) var(--space-4); }
+  .site-footer__inner { flex-direction: column; }
+  /* na mobilu se kresba lepí podle bundle.css */
+  .sp-floors { top: calc(var(--sp-header-h) + var(--space-2)); }
+}
+
+@media (pointer: coarse) {
+  .site-footer .sp-link { display: inline-flex; align-items: center; min-height: 44px; }
+}

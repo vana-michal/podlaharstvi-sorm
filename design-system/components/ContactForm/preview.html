@@ -1,0 +1,148 @@
+<!-- @dsCard group="Sekce" height=1080 width=1100 subtitle="Poptávkový formulář a kontaktní údaje" -->
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ContactForm — náhled</title>
+<style>.demo { padding: var(--space-8); background: var(--surface-sunk); }</style>
+</head>
+<body>
+<div class="demo sp-contact-wrap" id="kontakt">
+  <header class="sp-section-head">
+    <h2 class="sp-h2">Nezávazná poptávka</h2>
+    <p class="sp-lead">Napište mi, co potřebujete, a do 24 hodin se vám ozvu. Zaměření i cenová nabídka jsou nezávazné. Pokud máte fotku místnosti, přiložte ji. Nacenění pak bude rychlejší.</p>
+  </header>
+  <div class="sp-contact">
+    <div class="sp-form-slot">
+    <form class="sp-form" id="poptavka" novalidate>
+      <div class="sp-field"><label for="f-jmeno">Jméno</label><input class="sp-input" id="f-jmeno" name="jmeno" autocomplete="name" required><span class="sp-error" id="e-jmeno" hidden>Zadejte jméno.</span></div>
+      <div class="sp-field"><label for="f-tel">Telefon</label><input class="sp-input" id="f-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required placeholder="např. 607 123 456"><span class="sp-error" id="e-tel" hidden>Zadejte telefon, ať se vám můžu ozvat.</span></div>
+      <div class="sp-field"><label for="f-mail">E-mail <span class="sp-opt">(nepovinné)</span></label><input class="sp-input" id="f-mail" name="email" type="email" autocomplete="email"></div>
+      <div class="sp-field"><label for="f-obec">Obec</label><input class="sp-input" id="f-obec" name="obec" autocomplete="address-level2" required placeholder="např. Jablonec nad Nisou"><span class="sp-error" id="e-obec" hidden>Napište obec, kde je podlaha.</span></div>
+
+      <fieldset class="sp-field sp-field--full">
+        <legend>Typ podlahy <span class="sp-opt">(nepovinné)</span></legend>
+        <div class="sp-chips">
+          <label class="sp-chip"><input type="radio" name="typ" value="pvc"><span>PVC</span></label>
+          <label class="sp-chip"><input type="radio" name="typ" value="vinyl"><span>Lepený vinyl</span></label>
+          <label class="sp-chip"><input type="radio" name="typ" value="koberec"><span>Koberec</span></label>
+          <label class="sp-chip"><input type="radio" name="typ" value="nevim"><span>Zatím nevím</span></label>
+        </div>
+      </fieldset>
+
+      <div class="sp-field"><label for="f-m2">Přibližná plocha <span class="sp-opt">(nepovinné)</span></label><div class="sp-suffix"><input class="sp-input" id="f-m2" name="plocha" type="number" inputmode="decimal" min="0"><span>m²</span></div></div>
+      <div class="sp-field">
+        <span class="sp-field__title" id="foto-title">Fotky místnosti <span class="sp-opt">(nepovinné)</span></span>
+        <label class="sp-drop">
+          <input class="sp-sr-only" id="f-foto" name="fotky" type="file" accept="image/*" multiple aria-labelledby="foto-title foto-text">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1.5"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8.5 6l1.5-2h4l1.5 2"/></svg>
+          <span class="sp-small" id="foto-text">Přidat fotky místnosti</span>
+        </label>
+      </div>
+
+      <div class="sp-field sp-field--full"><label for="f-zprava">Zpráva <span class="sp-opt">(nepovinné)</span></label><textarea class="sp-input" id="f-zprava" name="zprava" placeholder="např. kuchyň a chodba, staré PVC na vytrhání"></textarea></div>
+
+      <div class="sp-field sp-field--full">
+        <label class="sp-check"><input type="checkbox" id="f-souhlas" required><span>Souhlasím se zpracováním osobních údajů pro vyřízení poptávky.</span></label>
+        <span class="sp-error" id="e-souhlas" hidden>Bez souhlasu poptávku nemůžu zpracovat.</span>
+      </div>
+
+      <div class="sp-field--full" style="display:grid;gap:var(--space-2)">
+        <button class="sp-btn sp-btn--primary sp-btn--block" type="submit" id="f-odeslat">Odeslat poptávku</button>
+        <span class="sp-small" style="text-align:center">Ozvu se vám do 24 hodin.</span>
+      </div>
+    </form>
+    </div>
+
+    <aside class="sp-info" aria-label="Kontakt">
+      <div class="sp-info__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 7 7l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3.5 5.5a2 2 0 0 1 2-2z"/></svg>
+        <a class="sp-info__phone sp-focusable" href="tel:+420607770193">607 770 193</a>
+      </div>
+      <div class="sp-info__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+        <a class="sp-body sp-focusable" href="mailto:sorm.podlaharstvi@email.cz">sorm.podlaharstvi@email.cz</a>
+      </div>
+      <div class="sp-info__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.25"/></svg>
+        <span class="sp-body">Liberec, Jablonec nad Nisou a okolí</span>
+      </div>
+      <div class="sp-info__firm"><span class="sp-small">Michal Šorm</span><span class="sp-small">IČO 86776070</span></div>
+    </aside>
+  </div>
+  <section class="sp-states" aria-labelledby="stavy-h">
+    <h3 class="sp-label" id="stavy-h">Stavy formuláře</h3>
+    <div class="sp-states__grid">
+      <div class="sp-field">
+        <label for="x-tel">Telefon</label>
+        <input class="sp-input" id="x-tel" type="tel" aria-invalid="true" aria-describedby="x-tel-e" value="607 12">
+        <span class="sp-error" id="x-tel-e">Zadejte telefon, ať se vám můžu ozvat.</span>
+        <span class="sp-label">Chyba</span>
+      </div>
+      <div class="sp-field">
+        <span class="sp-field__title">Odesílání</span>
+        <button class="sp-btn sp-btn--primary sp-btn--block" type="button" aria-busy="true" disabled>Odesílám…</button>
+        <span class="sp-label">Odesílá se</span>
+      </div>
+      <div class="sp-field">
+        <div class="sp-success" role="status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+          <div><b>Děkuji, poptávka dorazila.</b><p class="sp-small">Ozvu se vám do 24 hodin.</p></div>
+        </div>
+        <span class="sp-label">Odesláno</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById("poptavka");
+  var file = document.getElementById("f-foto"), fileText = document.getElementById("foto-text");
+  var plural = new Intl.PluralRules("cs");
+  var WORD = { one: "fotka", few: "fotky", many: "fotky", other: "fotek" };
+  file.addEventListener("change", function () {
+    var n = file.files.length;
+    fileText.textContent = n ? "Vybráno: " + n + " " + WORD[plural.select(n)] : "Přidat fotky místnosti";
+  });
+
+  var checks = [
+    ["f-jmeno", "e-jmeno", function (el) { return el.value.trim().length > 0; }],
+    ["f-tel", "e-tel", function (el) { return el.value.replace(/\D/g, "").length >= 9; }],
+    ["f-obec", "e-obec", function (el) { return el.value.trim().length > 0; }],
+    ["f-souhlas", "e-souhlas", function (el) { return el.checked; }]
+  ];
+  function mark(el, err, ok) {
+    el.setAttribute("aria-invalid", String(!ok));
+    if (ok) el.removeAttribute("aria-describedby"); else el.setAttribute("aria-describedby", err.id);
+    err.hidden = ok;
+  }
+  checks.forEach(function (c) {
+    var el = document.getElementById(c[0]), err = document.getElementById(c[1]);
+    el.addEventListener(el.type === "checkbox" ? "change" : "blur", function () { if (el.getAttribute("aria-invalid") === "true") mark(el, err, c[2](el)); });
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var first = null;
+    checks.forEach(function (c) {
+      var el = document.getElementById(c[0]), ok = c[2](el);
+      mark(el, document.getElementById(c[1]), ok);
+      if (!ok && !first) first = el;
+    });
+    if (first) { first.focus(); return; }
+    var btn = document.getElementById("f-odeslat");
+    btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = "Odesílám…";
+    /* náhled nic neodesílá; na webu sem patří volání formulářové služby */
+    setTimeout(function () {
+      var done = document.createElement("div");
+      done.className = "sp-success sp-success--large"; done.setAttribute("role", "status"); done.tabIndex = -1;
+      done.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg><div><b>Děkuji, poptávka dorazila.</b><p class="sp-small">Ozvu se vám do 24 hodin.</p></div>';
+      form.replaceWith(done); done.focus();
+    }, 1200);
+  });
+})();
+</script>
+</body>
+</html>

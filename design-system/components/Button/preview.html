@@ -1,0 +1,30 @@
+<!-- @dsCard group="Základ" height=150 width=760 subtitle="Hlavní, vedlejší, telefon a odkaz" -->
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button — náhled</title>
+<style>
+  .demo { padding: var(--space-6) var(--space-8); display: grid; gap: var(--space-4); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <div class="row">
+    <a class="sp-btn sp-btn--primary" href="#kontakt">Nezávazná poptávka</a>
+    <a class="sp-btn sp-btn--secondary" href="tel:+420607770193">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 7 7l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3.5 5.5a2 2 0 0 1 2-2z"/></svg>
+      Zavolat 607 770 193
+    </a>
+    <button class="sp-btn sp-btn--primary" type="submit">Odeslat poptávku</button>
+  </div>
+  <div class="row">
+    <a class="sp-btn sp-btn--primary sp-btn--small" href="tel:+420607770193">607 770 193</a>
+    <a class="sp-btn sp-btn--secondary sp-btn--small" href="#reference">Reference</a>
+    <a class="sp-link" href="#recenze">Všechny recenze na Googlu</a>
+  </div>
+</div>
+</body>
+</html>

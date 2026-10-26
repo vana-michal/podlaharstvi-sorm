@@ -1,0 +1,67 @@
+<!-- @dsCard group="Sekce" height=760 width=1200 subtitle="Úvod: nadpis, tři výhody, výzvy k akci a fotka v kótách" -->
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero — náhled</title>
+</head>
+<body>
+<section class="sp-hero" aria-labelledby="hero-h">
+  <div class="sp-hero__text">
+    <h1 class="sp-display" id="hero-h">Podlahy v Liberci a okolí od roku 2004</h1>
+    <p class="sp-lead">Pokládám PVC, lepený vinyl a koberce v bytech, domech i kancelářích.</p>
+    <ul class="sp-hero__benefits">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18"/><path d="M3 8.5v7M21 8.5v7"/><path d="M8 10.5v3M11 10.5v3M14 10.5v3M17 10.5v3" stroke-width="1"/></svg><b>Zaměření u vás doma</b><span class="sp-body">Přijedu, změřím místnost a poradím s výběrem materiálu.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><rect x="6.5" y="3.25" width="11" height="3.5" rx="1.75"/><path d="M12 6.75V10"/><path d="M3 10H21V18H19V16.5H17V18H15V16.5H13V18H11V16.5H9V18H7V16.5H5V18H3Z"/></svg><b>Všechno od jednoho člověka</b><span class="sp-body">Vytrhám staré PVC, vyrovnám podklad a položím novou podlahu i s lištami.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 20h18"/><path d="M5 20V5h3v8.5c0 1.5 1 2.5 2.5 2.5H19v4"/></svg><b>Přes 20 let praxe</b><span class="sp-body">Podlahy pokládám od roku 2004. Zákazníci v recenzích nejčastěji píšou o přesné a čisté práci.</span></li>
+    </ul>
+    <div class="sp-hero__actions">
+      <a class="sp-btn sp-btn--primary" href="#kontakt">Nezávazná poptávka</a>
+      <a class="sp-btn sp-btn--secondary" href="tel:+420607770193">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M5.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 7 7l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3.5 5.5a2 2 0 0 1 2-2z"/></svg>
+        Zavolat 607 770 193
+      </a>
+    </div>
+    <div class="sp-hero__trust">
+      <span class="sp-measure"><span class="sp-stars" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.2l2 4.3 4.7.5-3.5 3.2 1 4.6L8 11.5l-4.2 2.3 1-4.6L1.3 6l4.7-.5z"/></svg></span>5,0 na Googlu</span>
+      <span class="sp-measure">Liberec, Jablonec nad Nisou a okolí</span>
+    </div>
+  </div>
+
+  <div class="sp-plan">
+    <div class="sp-kota sp-plan__kota-x" aria-hidden="true"><span class="sp-kota__line"></span><span class="sp-label">4,20 m</span><span class="sp-kota__line"></span></div>
+    <div class="sp-plan__kota-y" aria-hidden="true"><span class="sp-kota__line"></span><span class="sp-label">5,25 m</span><span class="sp-kota__line"></span></div>
+    <div class="sp-plan__photo">
+      <svg data-floor="after" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ukázka: obývací pokoj s novým lepeným vinylem"></svg>
+    </div>
+    <span class="sp-measure sp-plan__note">Obývací pokoj, lepený vinyl, 22 m²</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* ukázková plocha místo fotky z realizace */
+  var NS = "http://www.w3.org/2000/svg", svg = document.querySelector('svg[data-floor]');
+  function el(t, a) { var n = document.createElementNS(NS, t); for (var k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; }
+  var HZ = 170, K = 330, KX = 300;
+  function pt(X, Z) { return [200 + X * KX / Z, HZ + K / Z]; }
+  function quad(x0, z0, x1, z1) { return [pt(x0, z0), pt(x1, z0), pt(x1, z1), pt(x0, z1)].map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" "); }
+  el("rect", { x: 0, y: 0, width: 400, height: HZ + 2, "class": "sp-ph-wall" });
+  var W = 0.34;
+  for (var xi = -16; xi < 16; xi++) {
+    var x0 = xi * W, z = 1 - (((xi * 37) % 10 + 10) % 10) * 0.12;
+    while (z < 10) {
+      var L = 1.1 + (((xi * 13 + Math.round(z * 10)) % 7 + 7) % 7) * 0.12, z1 = Math.min(z + L, 10), zz = Math.max(z, 1);
+      if (z1 > 1) {
+        el("polygon", { points: quad(x0, zz, x0 + W, z1), "class": "sp-ph-plank" });
+        el("path", { d: "M" + pt(x0 + W * 0.35, zz) + "L" + pt(x0 + W * 0.42, z1) + "M" + pt(x0 + W * 0.7, zz) + "L" + pt(x0 + W * 0.64, z1), "class": "sp-ph-grain" });
+      }
+      z = z1;
+    }
+  }
+  el("rect", { x: -2, y: HZ - 8, width: 404, height: 11, "class": "sp-ph-skirt" });
+})();
+</script>
+</body>
+</html>

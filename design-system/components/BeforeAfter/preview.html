@@ -1,0 +1,133 @@
+<!-- @dsCard group="Sekce" height=560 width=760 subtitle="Reference před a po: stěrka odhaluje novou podlahu při scrollu" -->
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BeforeAfter — náhled</title>
+<style>
+  .demo { padding: var(--space-6) var(--space-8); max-width: 760px; margin: 0 auto; display: grid; gap: var(--space-3); }
+  .demo__scroll { height: 480px; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); overscroll-behavior: contain; }
+  .demo__inner { padding: 96px var(--space-8) 320px; }
+  .demo__inner .sp-ba { max-width: 560px; margin: 0 auto; }
+  .demo__hint { display: flex; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <div class="demo__hint">
+    <span class="sp-label">Scrollujte v rámečku</span>
+    <span class="sp-label">Na webu reaguje na scroll stránky</span>
+  </div>
+  <div class="demo__scroll" id="scroller" tabindex="0" aria-label="Ukázková oblast pro scroll">
+    <div class="demo__inner">
+
+      <figure class="sp-ba" data-ba style="margin:0">
+        <div class="sp-ba__frame">
+          <svg class="sp-ba__img" data-floor="before" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Před: opotřebované staré PVC"></svg>
+          <svg class="sp-ba__img sp-ba__after" data-floor="after" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Po: nový lepený vinyl"></svg>
+          <span class="sp-ba__edge" aria-hidden="true"></span>
+          <span class="sp-ba__trowel" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="6.5" y="3.25" width="11" height="3.5" rx="1.75"/><path d="M12 6.75V10"/><path d="M3 10H21V18H19V16.5H17V18H15V16.5H13V18H11V16.5H9V18H7V16.5H5V18H3Z"/></svg>
+          </span>
+          <span class="sp-label sp-ba__tag sp-ba__tag--before">Před</span>
+          <span class="sp-label sp-ba__tag sp-ba__tag--after">Po</span>
+        </div>
+        <input class="sp-ba__range" type="range" min="0" max="100" value="55" aria-label="Posunout hranu před a po" hidden>
+        <figcaption class="sp-ba__caption">
+          <span class="sp-h3">Byt 3+1, Liberec-Rochlice</span>
+          <span class="sp-measure">Lepený vinyl, 68 m², hotovo za 3 dny</span>
+        </figcaption>
+        <span class="sp-small">Ukázková kresba. Na webu ji nahradí dvojice fotek z realizace.</span>
+      </figure>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent) { var n = document.createElementNS(NS, tag); for (var k in attrs) n.setAttribute(k, attrs[k]); parent.appendChild(n); return n; }
+
+  /* --- ukázkové plochy místo fotek: podlaha v perspektivě --- */
+  var HZ = 92, K = 208, KX = 250;
+  function pt(X, Z) { return [200 + X * KX / Z, HZ + K / Z]; }
+  function quad(x0, z0, x1, z1) { return [pt(x0, z0), pt(x1, z0), pt(x1, z1), pt(x0, z1)].map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" "); }
+  var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+
+  function drawBefore(svg) {
+    el("rect", { x: 0, y: 0, width: 400, height: HZ + 2, "class": "sp-ph-wall" }, svg);
+    for (var zi = 0; zi < 28; zi++) {
+      var z0 = 1 + zi * 0.42, z1 = z0 + 0.42;
+      for (var xi = -14; xi < 14; xi++) {
+        var x0 = xi * 0.42, cls = (xi + zi) % 2 ? "sp-ph-tile" : "sp-ph-tile sp-ph-tile--alt";
+        el("polygon", { points: quad(x0, z0, x0 + 0.42, z1), "class": cls }, svg);
+      }
+    }
+    for (var s = 0; s < 22; s++) {
+      var X = (rnd() - 0.5) * 3, Z = 1.05 + rnd() * 2.6, a = pt(X, Z), len = 8 + rnd() * 26, ang = rnd() * Math.PI;
+      el("path", { d: "M" + a[0] + " " + a[1] + "q" + (Math.cos(ang) * len / 2) + " " + (Math.sin(ang) * len / 4 - 3) + " " + Math.cos(ang) * len + " " + Math.sin(ang) * len / 2, "class": "sp-ph-scuff" }, svg);
+    }
+    var t = pt(-0.6, 1.2), u = pt(0.1, 2.2);
+    el("path", { d: "M" + t[0] + " " + t[1] + "L" + (t[0] + 30) + " " + (t[1] - 26) + "L" + u[0] + " " + u[1], "class": "sp-ph-scuff" }, svg);
+  }
+
+  function drawAfter(svg) {
+    el("rect", { x: 0, y: 0, width: 400, height: HZ + 2, "class": "sp-ph-wall" }, svg);
+    var W = 0.34;
+    for (var xi = -16; xi < 16; xi++) {
+      var x0 = xi * W, z = 1 - (((xi * 37) % 10 + 10) % 10) * 0.12;
+      while (z < 10) {
+        var L = 1.1 + (((xi * 13 + Math.round(z * 10)) % 7 + 7) % 7) * 0.12, z1 = Math.min(z + L, 10);
+        var zz = Math.max(z, 1);
+        if (z1 > 1) {
+          el("polygon", { points: quad(x0, zz, x0 + W, z1), "class": "sp-ph-plank" }, svg);
+          var g1 = pt(x0 + W * 0.35, zz), g2 = pt(x0 + W * 0.42, z1), g3 = pt(x0 + W * 0.7, zz), g4 = pt(x0 + W * 0.64, z1);
+          el("path", { d: "M" + g1 + "L" + g2 + "M" + g3 + "L" + g4, "class": "sp-ph-grain" }, svg);
+        }
+        z = z1;
+      }
+    }
+    el("rect", { x: -2, y: HZ - 6, width: 404, height: 9, "class": "sp-ph-skirt" }, svg);
+  }
+
+  document.querySelectorAll('svg[data-floor="before"]').forEach(drawBefore);
+  document.querySelectorAll('svg[data-floor="after"]').forEach(drawAfter);
+
+  /* --- odhalení na scroll --- */
+  function mountBeforeAfter(fig, scroller) {
+    var range = fig.querySelector(".sp-ba__range");
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var shown = 0, target = 0, raf = 0;
+    function set(p) {
+      fig.style.setProperty("--p", p.toFixed(4));
+      fig.style.setProperty("--tilt", (Math.sin(p * Math.PI * 5) * 7).toFixed(2) + "deg");
+    }
+    if (reduce) { range.hidden = false; set(range.value / 100); range.addEventListener("input", function () { set(range.value / 100); }); return; }
+
+    function measure() {
+      var r = fig.querySelector(".sp-ba__frame").getBoundingClientRect(), top = 0, vh = window.innerHeight;
+      if (scroller) { var rr = scroller.getBoundingClientRect(); top = rr.top; vh = rr.height; }
+      var c = r.top - top + r.height / 2;
+      /* hrana jede, když střed fotky projde z 80 % do 35 % výšky okna */
+      target = Math.max(0, Math.min(1, (vh * 0.8 - c) / (vh * 0.45)));
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    function tick() {
+      shown += (target - shown) * 0.2;
+      if (Math.abs(target - shown) < 0.001) shown = target;
+      set(shown);
+      raf = shown === target ? 0 : requestAnimationFrame(tick);
+    }
+    (scroller || window).addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    measure();
+  }
+
+  var scroller = document.getElementById("scroller");
+  document.querySelectorAll("[data-ba]").forEach(function (f) { mountBeforeAfter(f, scroller); });
+})();
+</script>
+</body>
+</html>
