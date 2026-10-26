@@ -187,6 +187,14 @@ body {
 .sp-ba__range { width: 100%; accent-color: var(--accent); }
 .sp-ba__range[hidden] { display: none; }
 
+/* připnutí: kontejner je o dráhu odkrytí vyšší než okno, rám uvnitř se lepí a stěrka jede, dokud kontejner neodjede.
+   --ba-distance dráha odkrytí, --ba-top odsazení pod lepící hlavičkou, --ba-chrome místo na popisek pod fotkou,
+   --ba-view výška okna (svh, aby připnutí neposkakovalo s lištou prohlížeče; náhled ji mění na výšku rámečku) */
+.sp-ba-pin { position: relative; height: calc(var(--ba-view, 100svh) - var(--ba-top, 0px) + var(--ba-distance, 120svh)); }
+.sp-ba-pin__frame { position: sticky; top: var(--ba-top, 0px); height: calc(var(--ba-view, 100svh) - var(--ba-top, 0px)); display: flex; flex-direction: column; justify-content: center; }
+/* fotka 4 : 3 se i s popiskem vejde do výšky okna; v nízkém okně se zmenší */
+.sp-ba-pin .sp-ba { width: min(100%, (var(--ba-view, 100svh) - var(--ba-top, 0px) - var(--ba-chrome, 136px)) * 4 / 3); }
+
 /* ---------- Postup ---------- */
 .sp-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); list-style: none; margin: 0; padding: 0; position: relative; }
 .sp-steps::before { content: ""; position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: var(--line); }
@@ -287,5 +295,9 @@ textarea.sp-input { min-height: 112px; resize: vertical; }
 
 @media (prefers-reduced-motion: reduce) {
   .sp-btn, .sp-service { transition: none; }
+  /* bez připnutí: přirozená výška, hranu posouvá posuvník */
+  .sp-ba-pin { height: auto; }
+  .sp-ba-pin__frame { position: static; height: auto; display: block; }
+  .sp-ba-pin .sp-ba { width: auto; }
   .sp-btn[aria-busy="true"]::before { animation: none; border-right-color: currentColor; opacity: 0.6; }
 }

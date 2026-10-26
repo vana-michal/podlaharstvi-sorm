@@ -21,9 +21,13 @@ html { scroll-padding-top: var(--sp-header-h); }
 .sp-floors { top: calc(var(--sp-header-h) + var(--space-6)); }
 .site-steps { margin-top: var(--space-24); }
 
-/* Reference: mřížka před/po, 2 sloupce */
+/* Reference: každá se připne zvlášť, proto pod sebou; při omezeném pohybu mřížka 2 sloupce */
 .site-refs { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-12) var(--space-8); }
 .site-refs .sp-ba { margin: 0; }
+.sp-ba-pin { --ba-top: var(--sp-header-h); }
+@media (prefers-reduced-motion: no-preference) {
+  .site-refs { grid-template-columns: 1fr; gap: 0; }
+}
 .site-refs__cta { margin-top: var(--space-12); }
 
 /* Kontakt: odsazení řeší sekce, ne obal formuláře */

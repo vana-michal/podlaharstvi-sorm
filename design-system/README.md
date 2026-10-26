@@ -61,7 +61,7 @@ Paleta „stěrka a metr“: bílá, šeď nivelační stěrky, grafit tužky a 
 1. `Header` – lepí se nahoře.
 2. `Hero` – nadpis, benefity, výzvy, fotka v kótách.
 3. Služby – `SectionHeading`, `ServiceFloors`, `ProcessSteps`.
-4. Reference – `SectionHeading`, mřížka `BeforeAfter` (2 sloupce, na mobilu 1), 6–9 zakázek.
+4. Reference – `SectionHeading`, `BeforeAfter` pod sebou, každá zakázka se připne zvlášť (při omezeném pohybu mřížka 2 sloupce, na mobilu 1), 6–9 zakázek.
 5. Recenze – `SectionHeading` na `surface-sunk`, `ReviewCard`: jedna velká a dvě menší citace.
 6. Kontakt – `SectionHeading` na `surface-sunk`, `ContactForm`.
 7. Patička – jméno, IČO 86776070, odkaz na zásady ochrany osobních údajů, ve stylu `small`.
@@ -76,8 +76,8 @@ Paleta „stěrka a metr“: bílá, šeď nivelační stěrky, grafit tužky a 
 
 - Přechody stavů: 700 ms, křivka `cubic-bezier(0.32, 0.72, 0, 1)`; hover barev 160 ms.
 - Hairline kresba: pružiny a přechody z knihovny `components/lib/hairline.js`, odstup 45 ms mezi vzorky.
-- Před/po: hrana sleduje scroll s vyhlazením, bez připínání.
-- `prefers-reduced-motion`: všechno doskočí okamžitě, před/po se ovládá posuvníkem.
+- Před/po: každá reference se při scrollu připne (`position: sticky`) a stěrka ji během dráhy odkrytí (výchozí 120svh) odkryje celou; teprve potom se rám odepne a stránka pokračuje. Při scrollu zpět se proces obrátí. Hrana se vyhlazuje, scroll se nikdy neblokuje (žádné `preventDefault` ani `overflow: hidden`), klávesnice i kotvy fungují normálně.
+- `prefers-reduced-motion`: všechno doskočí okamžitě, před/po se nepřipíná a ovládá se posuvníkem.
 - Žádné animace při načtení stránky, parallax ani vyjíždění textů.
 
 ## Fotografie

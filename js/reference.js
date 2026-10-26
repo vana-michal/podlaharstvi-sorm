@@ -47,34 +47,43 @@
   document.querySelectorAll('.sp-ba svg[data-floor="before"]').forEach(drawBefore);
   document.querySelectorAll('.sp-ba svg[data-floor="after"]').forEach(drawAfter);
 
-  /* --- odhalení na scroll --- */
+  /* --- odhalení na scroll: reference se připne a stěrka jede po dráze kontejneru .sp-ba-pin --- */
   function mountBeforeAfter(fig, scroller) {
     var range = fig.querySelector(".sp-ba__range");
+    var pin = fig.closest(".sp-ba-pin"), frame = pin && pin.querySelector(".sp-ba-pin__frame");
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var shown = 0, target = 0, raf = 0;
+    var shown = 0, target = 0, raf = 0, top = 0, dist = 1;
     function set(p) {
       fig.style.setProperty("--p", p.toFixed(4));
       fig.style.setProperty("--tilt", (Math.sin(p * Math.PI * 5) * 7).toFixed(2) + "deg");
     }
-    if (reduce) { range.hidden = false; set(range.value / 100); range.addEventListener("input", function () { set(range.value / 100); }); return; }
+    /* omezený pohyb (nebo chybí kontejner): bez připnutí, hranu posouvá posuvník */
+    if (reduce || !frame) { range.hidden = false; set(range.value / 100); range.addEventListener("input", function () { set(range.value / 100); }); return; }
 
-    function measure() {
-      var r = fig.querySelector(".sp-ba__frame").getBoundingClientRect(), top = 0, vh = window.innerHeight;
-      if (scroller) { var rr = scroller.getBoundingClientRect(); top = rr.top; vh = rr.height; }
-      var c = r.top - top + r.height / 2;
-      /* hrana jede, když střed fotky projde z 80 % do 35 % výšky okna */
-      target = Math.max(0, Math.min(1, (vh * 0.8 - c) / (vh * 0.45)));
-      if (!raf) raf = requestAnimationFrame(tick);
+    /* dráha = o kolik je kontejner vyšší než připnutý rám */
+    function layout() {
+      top = parseFloat(getComputedStyle(frame).top) || 0;
+      dist = Math.max(1, pin.offsetHeight - frame.offsetHeight);
+      schedule();
     }
     function tick() {
+      raf = 0;
+      var origin = scroller ? scroller.getBoundingClientRect().top : 0;
+      /* 0 na začátku připnutí, 1 na jeho konci */
+      target = Math.max(0, Math.min(1, (origin + top - pin.getBoundingClientRect().top) / dist));
+      /* zlomky pixelu na koncích dráhy: na konci je „po“ odkrytá celá, na začátku vůbec */
+      if (target > 0.995) target = 1; else if (target < 0.005) target = 0;
       shown += (target - shown) * 0.2;
       if (Math.abs(target - shown) < 0.001) shown = target;
       set(shown);
-      raf = shown === target ? 0 : requestAnimationFrame(tick);
+      if (shown !== target) raf = requestAnimationFrame(tick);
     }
-    (scroller || window).addEventListener("scroll", measure, { passive: true });
-    window.addEventListener("resize", measure);
-    measure();
+    function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
+    (scroller || window).addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", layout, { passive: true });
+    window.addEventListener("orientationchange", layout);
+    if ("ResizeObserver" in window) new ResizeObserver(layout).observe(pin);
+    layout();
   }
 
   /* na webu se hrana řídí scrollem okna */
